@@ -14,6 +14,22 @@ Cargo subcommand for AtCoder
 $ cargo install cargo-atcoder
 ```
 
+### forked version (mizar)
+
+[AtCoder向け環境(Rust version 1.42.0, edition 2018)](https://github.com/rust-lang-ja/atcoder-rust-resources/wiki/2020-Update)ではインストールできないパッケージに依存しているため、stableもしくはそれに近いバージョンを指定してインストールする事を推奨します。
+git version ([mizar branch](https://github.com/mizar/cargo-atcoder/tree/mizar)):
+```
+$ rustup install stable
+$ cargo +stable install --git https://github.com/mizar/cargo-atcoder.git#mizar
+```
+
+<!--
+Cargo.lock を参照してインストールする場合:
+```
+$ cargo +stable install --locked --git https://github.com/mizar/cargo-atcoder.git#mizar
+```
+-->
+
 ## ログイン
 
 ```
@@ -96,6 +112,17 @@ $ cargo atcoder submit <problem-id>
 
 サブミット前に、問題文中のテストケースでテストを行い、全て正解した場合のみサブミットを行います。オプションで強制的にサブミットしたり、サブミット前のテスト自体のスキップもできます。
 
+テストケースのテストが失敗してもサブミットする例:
+```
+$ cargo atcoder submit a --force
+```
+
+サブミット前のテストケースのテストをスキップする例:
+
+```
+$ cargo atcoder submit a --skip-test
+```
+
 `--bin` オプションを付けると、ソースコードではなく、バイナリを送りつけます。静的リンクしたバイナリを送りつけるので、お好きな処理系と、お好きなcrateが使えます。
 
 設定ファイルで、デフォルトでバイナリを送る設定にしたり、target tripleを設定したりできます。
@@ -168,6 +195,19 @@ $ cargo atcoder result [FLAGS] <submission-id>
 ## 設定ファイル
 
 `~/.config/cargo-atcoder.toml` に設定ファイルが生成されます。適当にいじって下さい（そのうち説明を書く）。
+
+例えば、 `~/.config/cargo-atcoder.toml` で以下のような設定を入れると、[AtCoder向け環境(Rust version 1.42.0, edition 2018)](https://github.com/rust-lang-ja/atcoder-rust-resources/wiki/2020-Update)でプロジェクトを作成する事ができます。
+```toml
+[project]
+rustc_version = "1.42.0"
+rustc_edition = "2018"
+```
+
+|OS|設定ファイルの場所|例|
+|---|---|---|
+|Linux|`$XDG_CONFIG_HOME/cargo-atcoder.toml` または `$HOME/.config/cargo-atcoder.toml`|`/home/USERNAME/.config/cargo-atcoder.toml`|
+|macOS|`$HOME/Library/Preferences/cargo-atcoder.toml`|`/Users/USERNAME/Library/Preferences/cargo-atcoder.toml`|
+|Windows|`{FOLDERID_RoamingAppData}\cargo-atcoder.toml`|`C:\Users\USERNAME\AppData\Roaming\cargo-atcoder.toml`|
 
 ## macOS 環境の場合
 
