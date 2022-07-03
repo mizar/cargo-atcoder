@@ -32,6 +32,7 @@ pub struct Profile {
 pub struct Project {
     pub template: String,
     pub rustc_version: Option<String>,
+    pub rustc_edition: Option<String>,
 }
 
 const DEFAULT_CONFIG_STR: &str = include_str!("../config/cargo-atcoder.toml");

@@ -100,6 +100,11 @@ async fn new_project(opt: NewOpt) -> Result<()> {
 
     let stat = Command::new("cargo")
         .arg("new")
+        .args(
+            config.project.rustc_edition
+            .map(|edition| vec!["--edition".to_owned(), edition])
+            .unwrap_or_default(),
+        )
         .arg(&opt.contest_id)
         .status()?;
     if !stat.success() {
